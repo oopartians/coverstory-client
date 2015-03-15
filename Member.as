@@ -4,6 +4,7 @@
 		public var id:String;
 		public var name:String = "익명";
 		public var period_number:int = -1;
+		public var phone_number:String;
 		public var mentor:Member;
 		public var mentees:Vector<Member>;
 
@@ -11,6 +12,7 @@
 			if(jsonObject == null)
 				return;
 			
+
 			name = jsonObject.name;
 			period_number = jsonObject.period_number;
 		}
