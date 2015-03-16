@@ -1,17 +1,22 @@
 ﻿package  {
 	
+	import flash.filters.BlurFilter;
+	import flash.events.Event;
 	public class BlurEffector {
 		static private var root:MovieClip;
 		static private var filter_force:int = 0;
 		static private var status:String = "before_change"
 		static private var waiting:Boolean = false
-
+		static private var next:Function = null;
 		
 		static public function setRoot(_root:MovieClip){
 			root = _root
 		}
 		
-		static public function BlurEffect(){
+		static public function BlurEffect(inext:Function = null){
+			if(inext != null){
+				next = inext;
+			}
 			status = "before_change"
 			root.addEventListener(Event.ENTER_FRAME,ef);
 		}
@@ -32,9 +37,13 @@
 				filter_force+=8;
 			}
 			else if(status == "after_change" && filter_force > 0){
-				filter_force-=8;
+				filter_force -= 8;
 			}
 			if(filter_force >= 500 && !waiting){
+				if(next != null){
+					next()
+					next = null
+				}
 				status = "after_change"
 			}
 			else if(filter_force <= 0 && status == "after_change"){
