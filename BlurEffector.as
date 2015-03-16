@@ -2,6 +2,7 @@
 	
 	import flash.filters.BlurFilter;
 	import flash.events.Event;
+	import flash.display.MovieClip;
 	public class BlurEffector {
 		static private var root:MovieClip;
 		static private var filter_force:int = 0;
@@ -32,7 +33,7 @@
 		static public function flush(){
 			waiting = false;
 		}
-		static public function ef(){
+		static public function ef(e:Event){
 			if(status == "before_change" && filter_force < 500){
 				filter_force+=8;
 			}

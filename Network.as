@@ -19,7 +19,7 @@
 			
 			RestCaller.callWithBody('auth/session',body,
 			function(param){
-				trace(param.session_token)
+				session = JSON.parse(param).session_token
 				success()
 			},
 			function(){

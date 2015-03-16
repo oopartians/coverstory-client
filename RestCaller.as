@@ -28,10 +28,6 @@
 			if(body != null){
 				request.contentType = "application/json"
 				body.format = "rest";
-				trace(1,body)
-				//trace(2,JSON.parse(body.toString()))
-				trace(3,JSON.stringify(body));
-				trace(4,JSON.parse(JSON.stringify(body)))
 				request.data = JSON.stringify(body)
 			}
 			
@@ -59,8 +55,9 @@
 			loader.addEventListener( Event.COMPLETE, httpRequestComplete ); 
 			loader.addEventListener( IOErrorEvent.IO_ERROR, httpRequestError ); 
 			loader.addEventListener( SecurityErrorEvent.SECURITY_ERROR, httpRequestError ); 
-			loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function(e:HTTPStatusEvent){trace("HTTPSTATUSEVENT",e,(URLLoader)(e.target).data)});
+			//loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function(e:HTTPStatusEvent){trace("HTTPSTATUSEVENT",e,(URLLoader)(e.target).data)});
 			loader.load( request ); 
+
 		}
 		
 		public static function call(url:String, success:Function = null, fail:Function = null):void 

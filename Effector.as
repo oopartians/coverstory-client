@@ -29,8 +29,8 @@
 			ColorEffector.WarnEffect()
 		}
 
-		static public function ef(){
-			MovieClip(root).filters = [BlurEffector.getFilter(),ColorEffector.getFilter()]
+		static public function ef(e:Event){
+			MovieClip(root).filters = [BlurEffector.getFilter()].concat(ColorEffector.getFilter())
 		}
 
 	}

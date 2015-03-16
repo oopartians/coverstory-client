@@ -54,10 +54,9 @@
 		{
 			Effector.BlurEffect(function()
 			{ 
-				gotoAndStop(page) 
+				root.gotoAndStop(page) 
 				if(pageChangingListener != null)
 					pageChangingListener(currentPage)
-				root.gotoAndStop(currentPage);
 
 			})
 		}
