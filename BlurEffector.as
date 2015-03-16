@@ -18,6 +18,7 @@
 			if(inext != null){
 				next = inext;
 			}
+			waiting = false
 			status = "before_change"
 			root.addEventListener(Event.ENTER_FRAME,ef);
 		}
@@ -34,13 +35,13 @@
 			waiting = false;
 		}
 		static public function ef(e:Event){
-			if(status == "before_change" && filter_force < 500){
+			if(status == "before_change" && filter_force < 200){
 				filter_force+=8;
 			}
 			else if(status == "after_change" && filter_force > 0){
 				filter_force -= 8;
 			}
-			if(filter_force >= 500 && !waiting){
+			if(filter_force >= 200 && !waiting){
 				if(next != null){
 					next()
 					next = null
