@@ -10,7 +10,8 @@
 	import flash.net.URLRequestMethod;
 	import flash.net.URLVariables; 
 	import flash.events.HTTPStatusEvent;
-		
+	import Network;
+	
 	public class RestCaller {
 		
 		public function RestCaller() {
@@ -18,8 +19,14 @@
 		}
 		
 		public static function callWithBody(url:String, body:URLVariables = null, success:Function = null, fail:Function = null){
-			var request:URLRequest = new URLRequest( "http://come-on-ooparts.herokuapp.com/"+url ); 
-			//var request:URLRequest = new URLRequest( "http://localhost:5000/"+url ); 
+			
+			var suffix:String = url;
+			if(Network.session != null){
+				suffix.concat("?session_token="+Network.session)
+			}
+			
+			var request:URLRequest = new URLRequest( "http://come-on-ooparts.herokuapp.com/"+suffix); 
+			var request:URLRequest = new URLRequest( "http://localhost:5000/"+suffix); 
 			request.method = URLRequestMethod.POST;
 			
 			
@@ -55,7 +62,7 @@
 			loader.addEventListener( Event.COMPLETE, httpRequestComplete ); 
 			loader.addEventListener( IOErrorEvent.IO_ERROR, httpRequestError ); 
 			loader.addEventListener( SecurityErrorEvent.SECURITY_ERROR, httpRequestError ); 
-			//loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function(e:HTTPStatusEvent){trace("HTTPSTATUSEVENT",e,(URLLoader)(e.target).data)});
+			loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function(e:HTTPStatusEvent){trace("HTTPSTATUSEVENT",e,(URLLoader)(e.target).data)});
 			loader.load( request ); 
 
 		}
