@@ -6,7 +6,8 @@
 		public var period_number:int = -1;
 		public var phone_number:String;
 		public var mentor:Member;
-		public var mentees:Vector<Member>;
+		public var mentees:Vector.<Member>;
+		public var admin:Boolean;
 
 		public function Member(jsonObject:Object = null) {
 			if(jsonObject == null)
@@ -15,6 +16,8 @@
 
 			name = jsonObject.name;
 			period_number = jsonObject.period_number;
+			phone_number = jsonObject.phone_number;
+			admin = jsonObject.admin;
 		}
 
 	}

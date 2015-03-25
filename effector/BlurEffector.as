@@ -1,4 +1,4 @@
-﻿package  {
+﻿package effector {
 	
 	import flash.filters.BlurFilter;
 	import flash.events.Event;
@@ -36,10 +36,10 @@
 		}
 		static public function ef(e:Event){
 			if(status == "before_change" && filter_force < 200){
-				filter_force+=8;
+				filter_force+=16;
 			}
 			else if(status == "after_change" && filter_force > 0){
-				filter_force -= 8;
+				filter_force -= 16;
 			}
 			if(filter_force >= 200 && !waiting){
 				if(next != null){

@@ -8,6 +8,7 @@
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest; 
 	import flash.net.URLRequestMethod;
+	import flash.net.URLRequestHeader;
 	import flash.net.URLVariables; 
 	import flash.events.HTTPStatusEvent;
 	import Network;
@@ -18,16 +19,22 @@
 			
 		}
 		
-		public static function callWithBody(url:String, body:URLVariables = null, success:Function = null, fail:Function = null){
+		public static function callWithBody(url:String, body:URLVariables = null, method:String = URLRequestMethod.POST, success:Function = null, fail:Function = null){
 			
 			var suffix:String = url;
-			if(Network.session != null){
-				suffix.concat("?session_token="+Network.session)
+			if(Network.session_token != null){
+				trace("session_token : "+Network.session_token)
+				suffix = suffix.concat("?session_token="+Network.session_token)
 			}
 			
 			var request:URLRequest = new URLRequest( "http://come-on-ooparts.herokuapp.com/"+suffix); 
-			var request:URLRequest = new URLRequest( "http://localhost:5000/"+suffix); 
+			//var request:URLRequest = new URLRequest( "http://localhost:5000/"+suffix); 
 			request.method = URLRequestMethod.POST;
+			request.requestHeaders.push(new URLRequestHeader("pragma", "no-cache"));
+			request.requestHeaders.push(new URLRequestHeader("Expires", "Thu, 01 Jan 1970 00:00:00 GMT, -1"));
+			request.requestHeaders.push(new URLRequestHeader("Cache-Control", "no-cache, no-store, must-revalidate"));
+			request.requestHeaders.push(new URLRequestHeader("X-HTTP-Method-Override", method))
+			
 			
 			
 			trace('rest call : '+url);
@@ -37,6 +44,7 @@
 				body.format = "rest";
 				request.data = JSON.stringify(body)
 			}
+
 			
 			
 			var httpRequestComplete:Function = function (e:Event) {
@@ -67,9 +75,9 @@
 
 		}
 		
-		public static function call(url:String, success:Function = null, fail:Function = null):void 
+		public static function call(url:String, method:String = URLRequestMethod.POST, success:Function = null, fail:Function = null):void 
 		{
-			callWithBody(url,null,success,fail);
+			callWithBody(url,null,method,success,fail);
 		} 
 		
 	}
