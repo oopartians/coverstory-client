@@ -9,6 +9,7 @@
 		static private var status:String = "before_change"
 		static private var waiting:Boolean = false
 		static private var next:Function = null;
+		static private const MAX:Number = 150
 		
 		static public function setRoot(_root:MovieClip){
 			root = _root
@@ -35,13 +36,13 @@
 			waiting = false;
 		}
 		static public function ef(e:Event){
-			if(status == "before_change" && filter_force < 200){
+			if(status == "before_change" && filter_force < MAX){
 				filter_force+=16;
 			}
 			else if(status == "after_change" && filter_force > 0){
 				filter_force -= 16;
 			}
-			if(filter_force >= 200 && !waiting){
+			if(filter_force >= MAX && !waiting){
 				if(next != null){
 					next()
 					next = null
